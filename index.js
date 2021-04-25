@@ -123,53 +123,58 @@ const viewRoles = () => {
 
 // Add a role
 const addRole = () => {
-    inquirer.prompt([
+    inquirer
+      .prompt([
         {
-            type: "input",
-            name: "title",
-            message: "Please enter new role.",
-            validate: titleInput => {
-                if (titleInput) {
-                    return true;
-                } else {
-                    console.log("You must specify the new role!");
-                    return false;
-                }
-            },
-            type: "input",
-            name: "salary",
-            message: "Please enter salary for the new role.",
-            validate: salaryInput => {
-                if (salaryInput) {
-                    return true;
-                } else {
-                    console.log("You must specify a salary for this role!");
-                    return false;
-                }
-            },
-            type: "input",
-            name: "department_id",
-            message: "Please enter department id for the new role.",
-            validate: department_idInput => {
-                if (department_idInput) {
-                    return true;
-                } else {
-                    console.log("You must specify the department id for this role!");
-                    return false;
-                }
+          type: "input",
+          name: "title",
+          message: "Please enter new role.",
+          validate: (titleInput) => {
+            if (titleInput) {
+              return true;
+            } else {
+              console.log("You must specify the new role!");
+              return false;
             }
+          }
+        },
+        {
+          type: "input",
+          name: "salary",
+          message: "Please enter salary for the new role.",
+          validate: (salaryInput) => {
+            if (salaryInput) {
+              return true;
+            } else {
+              console.log("You must specify a salary for this role!");
+              return false;
+            }
+          }
+        },
+        {
+          type: "input",
+          name: "department_id",
+          message: "Please enter department id for the new role.",
+          validate: (department_idInput) => {
+            if (department_idInput) {
+              return true;
+            } else {
+              console.log("You must specify the department id for this role!");
+              return false;
+            }
+          },
         }
-    ])
-        .then(({ role }) => {
-            connection.query(
-                `INSERT INTO role(title, salary, department_id) VALUES ('${role}')`,
-                (err) => {
-                    if (err) throw err;
-                    viewRoles();
-                }
-            );
-        })
-};
+      ])
+      .then(({ title, salary, department_id }) => {
+        connection.query(
+          `INSERT INTO role(title, salary, department_id) VALUES ('${title}', ${salary}, ${department_id})`,
+          (err) => {
+            if (err) throw err;
+            viewRoles();
+          }
+        );
+      });
+  };
 
 // View all employees
 const viewEmployees = () => {
@@ -185,64 +190,71 @@ const viewEmployees = () => {
 
 // Add an employee
 const addEmployee = () => {
-    inquirer.prompt([
+    inquirer
+      .prompt([
+        {
+          type: "input",
+          name: "first_name",
+          message: "Please enter employee's first name.",
+          validate: (first_nameInput) => {
+            if (first_nameInput) {
+              return true;
+            } else {
+              console.log("You must specify the employee's first name!");
+              return false;
+            }
+          }
+        },
+        {
+          type: "input",
+          name: "last_name",
+          message: "Please enter employee's last name.",
+          validate: (last_nameInput) => {
+            if (last_nameInput) {
+              return true;
+            } else {
+              console.log("You must specify the employee's last name!");
+              return false;
+            }
+          }
+        },
+        {
+          type: "input",
+          name: "role_id",
+          message: "Please enter the employee's role id.",
+          validate: (role_idInput) => {
+            if (role_idInput) {
+              return true;
+            } else {
+              console.log("You must specify the role id for this employee!");
+              return false;
+            }
+          }
+        },
         {
             type: "input",
-            name: "firstname",
-            message: "Please enter employee's first name.",
-            validate: firstnameInput => {
-                if (firstnameInput) {
-                    return true;
-                } else {
-                    console.log("You must specify the employee's first name!");
-                    return false;
-                }
-            },
-            type: "input",
-            name: "lastname",
-            message: "Please enter employee's last name.",
-            validate: lastnameInput => {
-                if (lastnameInput) {
-                    return true;
-                } else {
-                    console.log("You must specify the employee's last name!");
-                    return false;
-                }
-            },
-            type: "input",
-            name: "role_id",
-            message: "Please enter the employee's role id.",
-            validate: role_idInput => {
-                if (role_idInput) {
-                    return true;
-                } else {
-                    console.log("You must specify the role id for this employee!");
-                    return false;
-                }
-            },
-            type: "input",
             name: "manager_id",
-            message: "Please enter the employee's manager id (if applicable).",
-            validate: manager_idInput => {
-                if (manager_idInput) {
-                    return true;
-                } else {
-                    console.log("You must specify the manager id for this role!");
-                    return false;
-                }
+            message: "Please enter the employee's manager id.",
+            validate: (manager_idInput) => {
+              if (manager_idInput) {
+                return true;
+              } else {
+                console.log("You must specify the manager id for this role!");
+                return false;
+              }
             }
-        }
-    ])
-        .then(({ employee }) => {
-            connection.query(
-                `INSERT INTO role(firstname, lastname, role_id, manager_id) VALUES ('${employee}')`,
-                (err) => {
-                    if (err) throw err;
-                    viewEmployees();
-                }
-            );
-        })
-};
+          },
+      ])
+      .then(({ first_name, last_name, role_id, manager_id }) => {
+        connection.query(
+          `INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES ('${first_name}', '${last_name}', ${role_id}, ${manager_id})`,
+          (err) => {
+            if (err) throw err;
+            viewEmployees();
+          }
+        );
+      });
+  };
 
 // Update employee role
 const updateEmployeeRole = () => {
