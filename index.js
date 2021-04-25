@@ -43,7 +43,7 @@ const mainMenu = () => {
                     break;
 
                 case 'View all employees':
-                    console.log('View all employees');
+                    viewEmployees();
                     break;
 
                 case 'Add a department':
@@ -51,7 +51,7 @@ const mainMenu = () => {
                     break;
 
                 case 'Add a role':
-                    console.log('Add a role');
+                    addRole();
                     break;
 
                 case 'Add an employee':
@@ -120,12 +120,62 @@ const viewRoles = () => {
         }
     );
 };
-// TODO: Add a role
 
-// TODO: View all employees
+// Add a role
+// const addRole = () => {
+//     inquirer.prompt(
+//         {
+//             type: "input",
+//             name: "title",
+//             message: "Please enter new role.",
+//             validate: titleInput => {
+//                 if (titleInput) {
+//                     return true;
+//                 } else {
+//                     console.log("You must specify the new role!");
+//                     return false;
+//                 }
+//             },
+//             type: "input",
+//             name: "salary",
+//             message: "Please enter salary for the new role.",
+//             validate: salaryInput => {
+//                 if (salaryInput) {
+//                     return true;
+//                 } else {
+//                     console.log("You must specify a salary for this role!");
+//                     return false;
+//                 }
+//             }
+//         }
+//     )
+//         .then(({ role }) => {
+//             connection.query(
+//                 `INSERT INTO role(title) VALUES ('${role}')`,
+//                 `INSERT INTO role(salary) VALUES ('${role}')`,
+//                 (err) => {
+//                     if (err) throw err;
+//                     viewRoles();
+//                 }
+//             );
+//         })
+// };
+ 
+// View all employees
+const viewEmployees = () => {
+    connection.query(
+        'SELECT * FROM `employee`',
+        (err, results) => {
+            if (err) throw err;
+            console.table(results);
+            mainMenu();
+        }
+    );
+};
+
 // TODO: Add an employee
 
-// TODO: Update employee role
+// Update employee role
 const updateEmployeeRole = () => {
     connection.query(
         'SELECT * FROM `employee`',
