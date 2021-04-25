@@ -9,17 +9,6 @@ const connection = mysql.createConnection({
     database: 'tracker_db'
 });
 
-// simple query
-// connection.query(
-//     'SELECT * FROM `employee`',
-//     function(err, results, fields) {
-//       console.log(results); // results contains rows returned by server
-//       console.log(fields); // results contains rows returned by server
-//     }
-//   );
-
-// connection.end();
-
 // Main Menu
 const mainMenu = () => {
     return inquirer.prompt([
