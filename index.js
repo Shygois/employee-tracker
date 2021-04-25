@@ -39,7 +39,7 @@ const mainMenu = () => {
                     break;
 
                 case 'View all roles':
-                    console.log('View all roles');
+                    viewRoles();
                     break;
 
                 case 'View all employees':
@@ -69,6 +69,7 @@ const mainMenu = () => {
         })
 };
 
+// View all departments
 const viewDepartments = () => {
     connection.query(
         'SELECT * FROM `department`',
@@ -80,7 +81,7 @@ const viewDepartments = () => {
     );
 };
 
-
+// Add a department
 const addDepartment = () => {
     inquirer.prompt(
         {
@@ -108,7 +109,17 @@ const addDepartment = () => {
         })
 };
 
-// TODO: View all roles
+// View all roles
+const viewRoles = () => {
+    connection.query(
+        'SELECT * FROM `role`',
+        (err, results) => {
+            if (err) throw err;
+            console.table(results);
+            mainMenu();
+        }
+    );
+};
 // TODO: Add a role
 
 // TODO: View all employees
