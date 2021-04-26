@@ -9,8 +9,6 @@
 
 [Test Instructions](#testinstructions)
 
-[License](#license)
-
 ## Basic Information
 Shayana Gois
 
